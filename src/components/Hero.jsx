@@ -2,6 +2,7 @@ import React from "react";
 import { ReactTyped } from "react-typed"; 
 import { motion } from "framer-motion"; 
 import IMG from "../assets/Image/IMG.jpg";
+import Video from "../../src/assets/Image/Video.mp4"
 
 // SVG ICONS
 const GithubIcon = () => (
@@ -55,7 +56,7 @@ function Hero() {
     <main id="top" className="hero" style={{ position: "relative", overflow: "hidden" }}>
       {/* Background Video */}
       <video
-        src="../../src/assets/Image/Video.mp4"
+        src={Video}
         autoPlay
         loop
         muted
