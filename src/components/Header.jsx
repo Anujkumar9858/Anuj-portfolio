@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-
 function Header() {
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem("theme");
@@ -35,7 +34,7 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ Menu & Active link effect (same as before)
+  // ✅ Menu & Active link effect
   useEffect(() => {
     const header = document.querySelector("header[aria-label='Primary']");
     const menuBtn = header?.querySelector(".menu-btn");
@@ -67,9 +66,22 @@ function Header() {
     menu.addEventListener("click", onLinkClick);
     document.addEventListener("keydown", onKey);
     document.addEventListener("click", onClickOutside);
-    const onResize = () => { if (window.innerWidth > 680) close(); };
+
+    const onResize = () => {
+      if (window.innerWidth > 680) close();
+    };
     window.addEventListener("resize", onResize);
 
+    // ✅ Scroll hone par menu close
+    const onScrollClose = () => {
+      if (menu.classList.contains("open")) {
+        menu.classList.remove("open");
+        menuBtn.setAttribute("aria-expanded", "false");
+      }
+    };
+    window.addEventListener("scroll", onScrollClose);
+
+    // ✅ Active link highlight
     const links = Array.from(document.querySelectorAll('nav a[href^="#"]'));
     const sections = links
       .map((a) => document.querySelector(a.getAttribute("href")))
@@ -99,6 +111,7 @@ function Header() {
       document.removeEventListener("keydown", onKey);
       document.removeEventListener("click", onClickOutside);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", onScrollClose); // ✅ cleanup
       document.removeEventListener("scroll", onScroll);
     };
   }, []);
@@ -109,12 +122,26 @@ function Header() {
         <a className="brand" href="#top" aria-label="Homepage">
           <span>Portfolio.</span>
         </a>
-        <button className="theme-btn theme-btn--floating" onClick={toggleTheme} aria-label="Toggle theme">
+
+        {/* Theme Button */}
+        <button
+          className="theme-btn theme-btn--floating"
+          onClick={toggleTheme}
+          aria-label="Toggle theme"
+        >
           {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
         </button>
-        <button className="menu-btn" aria-expanded="false" aria-controls="menu">
+
+        {/* Menu Toggle */}
+        <button
+          className="menu-btn"
+          aria-expanded="false"
+          aria-controls="menu"
+        >
           ☰ Menu
         </button>
+
+        {/* Navigation */}
         <nav>
           <ul id="menu" role="menubar">
             <li><a href="#top">Home</a></li>
@@ -122,13 +149,23 @@ function Header() {
             <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#contact">Contact</a></li>
+
             <li className="profile-icon-item">
-              <Link to="/login" className="profile-icon interactive-element" aria-label="Profile">
+              <Link
+                to="/login"
+                className="profile-icon interactive-element"
+                aria-label="Profile"
+              >
                 👤
               </Link>
             </li>
+
             <li className="theme-menu-item">
-              <button className="theme-btn" onClick={toggleTheme} aria-label="Toggle theme in menu">
+              <button
+                className="theme-btn"
+                onClick={toggleTheme}
+                aria-label="Toggle theme in menu"
+              >
                 {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
               </button>
             </li>
