@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Dasboard.css"; // We'll put your CSS here
+import IMG from "../../assets/Image/IMG.jpg"
 
 
 const Dashboard = () => {
   // Profile state
   const [name, setName] = useState("Anuj Kushwaha");
   const [bio, setBio] = useState("Web Developer | Tech Enthusiast");
-  const [photo, setPhoto] = useState("https://via.placeholder.com/150");
+  const [photo, setPhoto] = useState(IMG);
 
   // Stats state
   const [posts, setPosts] = useState(120);
