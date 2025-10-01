@@ -2,28 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Header() {
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem("theme");
-    return saved || "dark";
-  });
-
   const [scrolled, setScrolled] = useState(false); // ✅ scroll state
-
-  useEffect(() => {
-    const root = document.documentElement;
-    root.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    const root = document.documentElement;
-    root.classList.add("theme-anim");
-    window.clearTimeout(window.__themeAnimTimeout);
-    window.__themeAnimTimeout = window.setTimeout(() => {
-      root.classList.remove("theme-anim");
-    }, 700);
-    setTheme((t) => (t === "dark" ? "light" : "dark"));
-  };
 
   // ✅ Scroll listener for transparent -> background
   useEffect(() => {
@@ -123,14 +102,7 @@ function Header() {
           <span>Portfolio.</span>
         </a>
 
-        {/* Theme Button */}
-        <button
-          className="theme-btn theme-btn--floating"
-          onClick={toggleTheme}
-          aria-label="Toggle theme"
-        >
-          {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
-        </button>
+        {/* Theme changer removed */}
 
         {/* Menu Toggle */}
         <button
@@ -160,15 +132,7 @@ function Header() {
               </Link>
             </li>
 
-            <li className="theme-menu-item">
-              <button
-                className="theme-btn"
-                onClick={toggleTheme}
-                aria-label="Toggle theme in menu"
-              >
-                {theme === "dark" ? "☀️ Light" : "🌙 Dark"}
-              </button>
-            </li>
+            {/* theme menu item removed */}
           </ul>
         </nav>
       </div>

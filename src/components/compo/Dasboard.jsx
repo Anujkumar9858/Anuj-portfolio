@@ -10,12 +10,10 @@ const Dashboard = () => {
   const [photo, setPhoto] = useState(IMG);
 
   // Stats state
-  const [posts, setPosts] = useState(120);
-  const [followers, setFollowers] = useState(350);
-  const [following, setFollowing] = useState(180);
+  const [posts] = useState(120);
+  const [followers] = useState(350);
+  const [following] = useState(180);
 
-  // Theme state
-  const [darkMode, setDarkMode] = useState(false);
 
   // Section state
   const [activeSection, setActiveSection] = useState("profile");
@@ -46,7 +44,6 @@ const Dashboard = () => {
   const [tempPhoto, setTempPhoto] = useState(photo);
 
   // Handlers
-  const handleToggleTheme = () => setDarkMode(!darkMode);
 
   const handleNameChange = (e) => setTempName(e.target.value);
   const handleBioChange = (e) => setTempBio(e.target.value);
@@ -95,7 +92,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className={`dashboard ${darkMode ? "dark-mode" : ""}`}> 
+    <div className={`dashboard`}> 
       {/* Mobile menu button */}
       <button className="dashboard-menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
         ☰ Menu
@@ -297,8 +294,7 @@ const Dashboard = () => {
           <div className="settings card">
             <h3>Settings</h3>
             
-            <label>Theme:</label>
-            <button onClick={handleToggleTheme}>Toggle Dark/Light</button>
+            {/* Theme toggle removed */}
 
             <label>Update Name:</label>
             <input

@@ -52,8 +52,28 @@ const TwitterIcon = () => (
 
 function Hero() {
   return (
-    <main id="top" className="hero">
-      <div className="container hero-grid">
+    <main id="top" className="hero" style={{ position: "relative", overflow: "hidden" }}>
+      {/* Background Video */}
+      <video
+        src="../../src/assets/Image/Video.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      />
+
+      <div className="container hero-grid" style={{ position: "relative", zIndex: 1 }}>
 
         {/* LEFT SIDE */}
         <motion.div
