@@ -45,7 +45,6 @@ function Skills() {
             { name: "React ", level: "Advanced" },
             { name: "Node / Express", level: "Advanced" },
             { name: "CSS / Tailwind / Bootstrap", level: "Advanced" },
-            { name: "SQL", level: "Intermediate" },
             { name: "UX / Accessibility", level: "Advanced" },
             { name: "Testing ", level: "Intermediate" },
             { name: "Cloud (Vercel, AWS)", level: "Intermediate" },
