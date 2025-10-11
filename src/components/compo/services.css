@@ -155,5 +155,5 @@
 
 .service-modal::-webkit-scrollbar-thumb {
   background: #6d4ddf;
-  border-radius: 3px 0;
+  border-radius: 3px;
 }
