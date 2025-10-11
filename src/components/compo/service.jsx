@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import "./Services.css";
+import "./services.css";
 
 const Services = () => {
   const [activeService, setActiveService] = useState(null);
