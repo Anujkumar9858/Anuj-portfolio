@@ -1,43 +1,44 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { ReactTyped } from "react-typed";
+import { GraduationCap, Calendar, MapPin, Award } from "lucide-react";
+import "./Education.css";
 
 function EducationItem({ degree, school, start, end, location, details, index }) {
   return (
-    <motion.li
-      className="t-item card"
-      initial={{ opacity: 0, rotateY: index % 2 === 0 ? -90 : 90, z: -100 }}
-      whileInView={{ opacity: 1, rotateY: 0, z: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.2 }}
-      whileHover={{
-        scale: 1.05,
-        rotateX: 5,
-        rotateY: 5,
-        boxShadow: "0px 10px 30px rgba(0,0,0,0.15)", 
-      }}
-      style={{
-        transformStyle: "preserve-3d",
-        perspective: "1000px",
-        marginBottom: "20px",
-        
-      }}
+    <motion.div
+      className="education-card"
+      initial={{ opacity: 0, x: -50 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
     >
-      <div className="t-dot"></div>
-      <h3>
-        {degree} · {school}
-      </h3>
-      <p
-        className="lead"
-        style={{ margin: ".2rem 0", color: "var(--muted)" }}
-      >
-        {start} — {end} · {location}
-      </p>
-      <ul>
+      <div className="timeline-dot"></div>
+
+      <div className="edu-header">
+        <div className="edu-title">
+          <h3><GraduationCap size={24} className="text-brand" /> {degree}</h3>
+          <span className="edu-institution">{school}</span>
+        </div>
+
+        <div className="edu-meta">
+          <div className="edu-date">
+            <Calendar size={14} />
+            <span>{start} — {end}</span>
+          </div>
+          <div className="edu-location">
+            <MapPin size={14} />
+            <span>{location}</span>
+          </div>
+        </div>
+      </div>
+
+      <ul className="edu-details">
         {details.map((d, i) => (
           <li key={i}>{d}</li>
         ))}
       </ul>
-    </motion.li>
+    </motion.div>
   );
 }
 
@@ -50,40 +51,61 @@ export default function EducationTimeline() {
       end: "2026",
       location: "Bhopal, Madhya Pradesh",
       details: [
-        "Branch: Computer Science and Engineering",
-        "CGPA: Appearing...",
-        "Thesis on scalable graph processing",
+        "Specialization: Computer Science and Engineering",
+        "Current Status: Appearing",
+        "Focus: Scalable Systems & Full Stack Development",
       ],
     },
     {
-      degree: "Diploma",
+      degree: "Diploma in Computer Science",
       school: "Government Polytechnic Khutri, Bokaro",
       start: "2020",
       end: "2023",
       location: "Bokaro, Jharkhand",
-      details: ["Branch: Computer Science", "Scored 69.5%"],
+      details: [
+        "Branch: Computer Science",
+        "Grade: 69.5%",
+        "Key Projects: Library Management System"
+      ],
     },
     {
-      degree: "MATRIX (10th Grade)",
+      degree: "High School (10th Grade)",
       school: "Sita High School, Hariharganj",
       start: "2019",
       end: "2020",
       location: "Jharkhand",
-      details: ["Scored 81%"],
+      details: [
+        "Board: State Board",
+        "Grade: 81%",
+        "Focus: Mathematics & Science"
+      ],
     },
   ];
 
   return (
-    <section id="education" aria-labelledby="edu-title">
+    <section id="education" aria-labelledby="edu-title" className="education-section">
       <div className="container">
-        <div className="section-head">
-          <h2 id="edu-title">Education</h2>
+        <div className="education-header">
+          <h2 id="edu-title">
+            <ReactTyped
+              strings={["My Education Journey", "Academic Background"]}
+              typeSpeed={50}
+              backSpeed={30}
+              backDelay={2000}
+              loop
+              showCursor={false}
+            />
+          </h2>
+          <p>
+            My academic path has been a journey of continuous learning and growth in the field of Computer Science.
+          </p>
         </div>
-        <ol className="timeline" style={{ perspective: "1200px" }}>
+
+        <div className="timeline">
           {education.map((edu, idx) => (
             <EducationItem key={idx} {...edu} index={idx} />
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   );

@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { ReactTyped } from "react-typed";
+import { Send, Mail, MapPin, Github, Linkedin, Instagram, User, MessageSquare } from "lucide-react";
+import "./Contact.css";
 
 function Contact() {
   const [status, setStatus] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const form = e.target;
     const data = new FormData(form);
 
@@ -15,86 +20,169 @@ function Contact() {
 
     if (!name || !email || !message) {
       setStatus("Please fill out all fields.");
+      setIsSubmitting(false);
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus("Enter a valid email address.");
+      setIsSubmitting(false);
       return;
     }
 
     try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
       const messages = JSON.parse(localStorage.getItem("messages") || "[]");
       messages.push({ sender: name, email, content: message, date: new Date().toISOString() });
       localStorage.setItem("messages", JSON.stringify(messages));
-      setStatus("Thanks! Your message has been successfully sent.");
+
+      setStatus("Thanks! Your message has been sent successfully.");
       form.reset();
       setTimeout(() => setStatus(""), 4000);
     } catch {
-      setStatus("Failed to save message.");
+      setStatus("Failed to send message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-title">
+    <section id="contact" aria-labelledby="contact-title" className="contact-section">
       <div className="container">
-        <div className="section-head">
-          <h2 id="contact-title">Contact</h2>
+        <div className="contact-header">
+          <h2 id="contact-title">
+            <ReactTyped
+              strings={["Get In Touch", "Let's Connect", "Hire Me"]}
+              typeSpeed={50}
+              backSpeed={30}
+              backDelay={2000}
+              loop
+              showCursor={false}
+            />
+          </h2>
+          <p>
+            Have a project in mind or just want to say hi? I'd love to hear from you.
+          </p>
         </div>
 
-        <div className="grid contact-grid">
+        <div className="contact-container">
           {/* Contact Form */}
-          <motion.form
-            className="card"
-            onSubmit={handleSubmit}
-            noValidate
-            initial={{ opacity: 0, y: 50, rotateX: -15 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            whileHover={{ scale: 1.05, rotateY: 5, boxShadow: "0px 15px 25px rgba(0,0,0,0.2)" }}
-            whileTap={{ scale: 0.98, rotateY: -5 }}
+          <motion.div
+            className="contact-form-wrapper"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8 }}
           >
-            <label>
-              <span>Name</span>
-              <input type="text" name="name" placeholder="Enter Your Name" required />
-            </label>
-            <label>
-              <span>Email</span>
-              <input type="email" name="email" placeholder="Enter Your Email" required />
-            </label>
-            <label>
-              <span>Message</span>
-              <textarea name="message" placeholder="Tell me about your project..." required />
-            </label>
-            <div className="hero-cta">
-              <motion.button
-                className="btn"
-                type="submit"
-                whileHover={{ scale: 1.1, rotateZ: 2 }}
-                whileTap={{ scale: 0.95, rotateZ: -2 }}
-              >
-                Send Message
-              </motion.button>
-              {status && <span className="chip">{status}</span>}
-            </div>
-          </motion.form>
+            <form className="contact-form-card" onSubmit={handleSubmit} noValidate>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <div className="input-wrapper">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    className="form-input"
+                    placeholder="Enter Your Name"
+                    required
+                  />
+                </div>
+              </div>
 
-          {/* Sidebar */}
-          <motion.aside
-            className="card"
-            initial={{ opacity: 0, x: 80, rotateY: 20 }}
-            animate={{ opacity: 1, x: 0, rotateY: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-            whileHover={{ scale: 1.05, rotateX: 5, boxShadow: "0px 15px 25px rgba(0,0,0,0.2)" }}
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <div className="input-wrapper">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className="form-input"
+                    placeholder="Enter Your Email"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="message">Message</label>
+                <div className="input-wrapper">
+                  <textarea
+                    id="message"
+                    name="message"
+                    className="form-textarea"
+                    placeholder="Tell me about your project..."
+                    required
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="submit-btn"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Sending..." : (
+                  <>Send Message <Send size={18} /></>
+                )}
+              </button>
+
+              {status && (
+                <div className={`status-msg ${status.includes("Failed") || status.includes("Please") || status.includes("valid") ? "error" : "success"}`}>
+                  {status}
+                </div>
+              )}
+            </form>
+          </motion.div>
+
+          {/* Contact Info Sidebar */}
+          <motion.div
+            className="contact-info-card"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <p><strong>Email:</strong> <a href="mailto:anujkushwaha9858@gmail.com">anujkushwaha9858@gmail.com</a></p>
-            <p><strong>Location:</strong> Bhopal, Madhya Pradesh</p>
-            <p><strong>Social:</strong></p>
-            <p className="hero-cta" style={{ marginTop: ".4rem" }}>
-              <motion.a className="btn secondary" href="https://github.com/Anujkumar9858" whileHover={{ scale: 1.1 }}>GitHub</motion.a>
-              <motion.a className="btn secondary" href="https://www.linkedin.com/in/anujkumar9858/" whileHover={{ scale: 1.1 }}>LinkedIn</motion.a>
-              <motion.a className="btn secondary" href="https://instagram.com/anuj_kushwaha_98" whileHover={{ scale: 1.1 }}>Instagram</motion.a>
-            </p>
-          </motion.aside>
+            <div className="info-item">
+              <div className="info-icon">
+                <Mail size={24} />
+              </div>
+              <div className="info-content">
+                <h4>Email Me</h4>
+                <a href="mailto:anujkushwaha9858@gmail.com">anujkushwaha9858@gmail.com</a>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="info-icon">
+                <MapPin size={24} />
+              </div>
+              <div className="info-content">
+                <h4>Location</h4>
+                <p>Bhopal, Madhya Pradesh, India</p>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="info-icon">
+                <User size={24} />
+              </div>
+              <div className="info-content">
+                <h4>Social Profiles</h4>
+                <div className="social-links-grid">
+                  <a href="https://github.com/Anujkumar9858" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="GitHub">
+                    <Github size={20} />
+                  </a>
+                  <a href="https://www.linkedin.com/in/anujkumar9858/" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="LinkedIn">
+                    <Linkedin size={20} />
+                  </a>
+                  <a href="https://instagram.com/anuj_kushwaha_98" target="_blank" rel="noopener noreferrer" className="social-btn" aria-label="Instagram">
+                    <Instagram size={20} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

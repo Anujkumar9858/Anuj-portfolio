@@ -1,0 +1,209 @@
+.education-section {
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.education-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.education-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.education-header p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+/* Vertical Line */
+.timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 2rem;
+    width: 2px;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            var(--brand) 15%,
+            var(--brand-2) 85%,
+            transparent 100%);
+    border-radius: 2px;
+}
+
+.education-card {
+    position: relative;
+    margin-left: 4rem;
+    margin-bottom: 3rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.education-card:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 20px 40px -15px rgba(139, 92, 246, 0.15);
+}
+
+/* Timeline Dot */
+.timeline-dot {
+    position: absolute;
+    left: -2.6rem;
+    /* Adjust based on card margin and line position */
+    top: 2rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--brand);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.education-card:hover .timeline-dot {
+    background: var(--brand);
+    box-shadow: 0 0 0 6px rgba(139, 92, 246, 0.3);
+    transform: scale(1.2);
+}
+
+.edu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.edu-title h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.edu-institution {
+    font-size: 1.1rem;
+    color: var(--brand-2);
+    font-weight: 600;
+}
+
+.edu-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+.edu-date,
+.edu-location {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.edu-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.edu-details li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.edu-details li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--brand);
+    font-weight: bold;
+}
+
+/* Light Theme Overrides */
+[data-theme="light"] .education-card {
+    background: #ffffff;
+    border-color: rgba(2, 6, 23, 0.08);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .education-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 20px 40px -15px rgba(139, 92, 246, 0.15);
+    background: #ffffff;
+}
+
+[data-theme="light"] .edu-date,
+[data-theme="light"] .edu-location {
+    background: rgba(2, 6, 23, 0.05);
+    border-color: rgba(2, 6, 23, 0.1);
+}
+
+[data-theme="light"] .timeline::before {
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            var(--brand) 15%,
+            var(--brand-2) 85%,
+            transparent 100%);
+}
+
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 1rem;
+    }
+
+    .education-card {
+        margin-left: 2.5rem;
+        padding: 1.5rem;
+    }
+
+    .timeline-dot {
+        left: -1.9rem;
+    }
+
+    .edu-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .edu-meta {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}

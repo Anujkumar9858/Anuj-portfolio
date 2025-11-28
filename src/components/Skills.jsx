@@ -1,63 +1,93 @@
 import { motion } from "framer-motion";
 import { ReactTyped } from "react-typed";
+import {
+  Code2,
+  Atom,
+  Server,
+  Palette,
+  Layout,
+  CheckCircle2,
+  Cloud,
+  Database,
+  Terminal,
+  Smartphone,
+  Globe,
+  Cpu
+} from "lucide-react";
+import "./Skills.css";
+
+const skillsData = [
+  { name: "JavaScript", icon: <Code2 size={32} />, level: "Advanced", category: "Frontend" },
+  { name: "React.js", icon: <Atom size={32} />, level: "Advanced", category: "Frontend" },
+  { name: "Node.js", icon: <Server size={32} />, level: "Advanced", category: "Backend" },
+  { name: "CSS / Tailwind", icon: <Palette size={32} />, level: "Advanced", category: "Frontend" },
+  { name: "UX / UI Design", icon: <Layout size={32} />, level: "Advanced", category: "Design" },
+  { name: "Mobile Dev", icon: <Smartphone size={32} />, level: "Intermediate", category: "Mobile" },
+  { name: "Database (SQL/NoSQL)", icon: <Database size={32} />, level: "Intermediate", category: "Backend" },
+  { name: "Cloud (AWS/Vercel)", icon: <Cloud size={32} />, level: "Intermediate", category: "DevOps" },
+  { name: "Testing (Jest)", icon: <CheckCircle2 size={32} />, level: "Intermediate", category: "Testing" },
+  { name: "Git & DevOps", icon: <Terminal size={32} />, level: "Advanced", category: "DevOps" },
+  { name: "Performance", icon: <Cpu size={32} />, level: "Advanced", category: "Optimization" },
+  { name: "SEO", icon: <Globe size={32} />, level: "Intermediate", category: "Optimization" },
+];
 
 function Skills() {
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 },
+      transition: { staggerChildren: 0.1 },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 20, scale: 0.9 },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 260, damping: 20 }
+    },
   };
 
   return (
-    <section id="skills" aria-labelledby="skills-title" className="py-12">
+    <section id="skills" aria-labelledby="skills-title" className="skills-section">
       <div className="container">
-        <div className="section-head text-center mb-10">
-          <h2 id="skills-title" className="text-3xl font-bold">
+        <div className="skills-header">
+          <h2 id="skills-title">
             <ReactTyped
-              strings={["My Skills", "Tech Stack", "What I Do Best"]}
-              typeSpeed={60}
-              backSpeed={40}
+              strings={["My Tech Stack", "Core Skills", "What I Do Best"]}
+              typeSpeed={50}
+              backSpeed={30}
               backDelay={2000}
               loop
+              showCursor={false}
             />
           </h2>
+          <p>
+            A curated list of technologies and tools I use to build performant, scalable, and beautiful web applications.
+          </p>
         </div>
 
-        {/* Animated Skills Grid */}
         <motion.div
-          className="grid skills gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
+          className="skills-grid"
           variants={containerVariants}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
         >
-          {/* Skill Items */}
-          {[
-            { name: "JavaScript ", level: "Advanced" },
-            { name: "React ", level: "Advanced" },
-            { name: "Node / Express", level: "Advanced" },
-            { name: "CSS / Tailwind / Bootstrap", level: "Advanced" },
-            { name: "UX / Accessibility", level: "Advanced" },
-            { name: "Testing ", level: "Intermediate" },
-            { name: "Cloud (Vercel, AWS)", level: "Intermediate" },
-          ].map((skill, index) => (
+          {skillsData.map((skill, index) => (
             <motion.div
               key={index}
-              className="skill p-4 border border-gray-300 rounded-2xl shadow-md bg-white hover:shadow-xl transition-transform hover:-translate-y-2 cursor-pointer"
+              className="skill-card"
               variants={itemVariants}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
-              <strong className="block text-lg">{skill.name}</strong>
-              <span className="chip mt-2 inline-block bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm">
-                {skill.level}
-              </span>
+              <div className="skill-icon">
+                {skill.icon}
+              </div>
+              <h3 className="skill-name">{skill.name}</h3>
+              <span className="skill-level">{skill.level}</span>
             </motion.div>
           ))}
         </motion.div>

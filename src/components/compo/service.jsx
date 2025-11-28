@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ReactTyped } from "react-typed";
+import { Code2, ShoppingCart, Zap, Wrench, X, CheckCircle2 } from "lucide-react";
 import "./services.css";
 
 const Services = () => {
@@ -10,7 +12,7 @@ const Services = () => {
 
   const serviceDetails = {
     web: {
-      icon: "💻",
+      icon: <Code2 size={48} />,
       title: "Web Development",
       subtitle: "Full-Stack Solutions",
       description:
@@ -24,7 +26,7 @@ const Services = () => {
       tools: ["React.js", "Node.js", "MongoDB", "Vercel", "GitHub"],
     },
     ecommerce: {
-      icon: "🛒",
+      icon: <ShoppingCart size={48} />,
       title: "E-commerce Solutions",
       subtitle: "Online Store Development",
       description:
@@ -38,7 +40,7 @@ const Services = () => {
       tools: ["React", "Firebase", "Stripe API", "Bootstrap"],
     },
     optimize: {
-      icon: "⚡",
+      icon: <Zap size={48} />,
       title: "Web Optimization",
       subtitle: "Performance & SEO",
       description:
@@ -52,7 +54,7 @@ const Services = () => {
       tools: ["Lighthouse", "React Profiler", "Google Analytics"],
     },
     maintenance: {
-      icon: "🛠️",
+      icon: <Wrench size={48} />,
       title: "Website Maintenance",
       subtitle: "Ongoing Support",
       description:
@@ -70,110 +72,51 @@ const Services = () => {
   return (
     <>
       <div className="services-container">
-        <h1 className="services-header">What I Can Do For You</h1>
-        <p className="services-subheader">
-          From concept to deployment, I deliver end-to-end web solutions to
-          empower your business digitally.
-        </p>
+        <div className="section-head center" style={{ flexDirection: "column", textAlign: "center", marginBottom: "4rem" }}>
+          <h1 className="services-header" style={{ marginBottom: "0.5rem" }}>
+            <ReactTyped
+              strings={["What I Can Do For You"]}
+              typeSpeed={50}
+              backSpeed={30}
+              loop={false}
+              showCursor={false}
+            />
+          </h1>
+          <p className="services-subheader" style={{ maxWidth: "700px", margin: "0 auto" }}>
+            From concept to deployment, I deliver end-to-end web solutions to
+            empower your business digitally.
+          </p>
+        </div>
 
         <div className="services-grid">
-          {/* Service 1 */}
-          <motion.div
-            className="service-card"
-            whileHover={{ rotateY: 10, rotateX: 5, scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 200, damping: 10 }}
-          >
-            <div className="service-icon">💻</div>
-            <h2>Web Development</h2>
-            <h3 style={{ color: "#a74a4a", fontSize: "20px" }}>
-              Full-Stack Solutions
-            </h3>
-            <p>
-              Build modern, scalable web applications using cutting-edge
-              technologies like React, Node.js, and cloud platforms.
-            </p>
-            <p
-              className="price"
-              id="money"
-              onClick={() => handleViewMore("web")}
+          {Object.entries(serviceDetails).map(([key, service], index) => (
+            <motion.div
+              key={key}
+              className="service-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
             >
-              More Details
-            </p>
-          </motion.div>
-
-          {/* Service 2 */}
-          <motion.div
-            className="service-card"
-            whileHover={{ rotateY: -10, rotateX: 5, scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 200, damping: 10 }}
-          >
-            <div className="service-icon">🛒</div>
-            <h2>E-commerce Solution</h2>
-            <h3 style={{ color: "#a74a4a", fontSize: "20px" }}>
-              Online Store Development
-            </h3>
-            <p>
-              Build powerful e-commerce platforms with secure payment
-              processing, inventory management, and analytics.
-            </p>
-            <p
-              className="price"
-              id="money"
-              onClick={() => handleViewMore("ecommerce")}
-            >
-              More Details
-            </p>
-          </motion.div>
-
-          {/* Service 3 */}
-          <motion.div
-            className="service-card"
-            whileHover={{ rotateY: 8, rotateX: -5, scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 200, damping: 10 }}
-          >
-            <div className="service-icon">⚡</div>
-            <h2>Web Optimization</h2>
-            <h3 style={{ color: "#a74a4a", fontSize: "20px" }}>
-              Performance & SEO
-            </h3>
-            <p>
-              Optimize your website for speed, search engines, and user
-              experience to maximize conversions and traffic.
-            </p>
-            <p
-              className="price"
-              id="money"
-              onClick={() => handleViewMore("optimize")}
-              style={{ marginTop: "39px" }}
-            >
-              More Details
-            </p>
-          </motion.div>
-
-          {/* Service 4 */}
-          <motion.div
-            className="service-card"
-            whileHover={{ rotateY: -8, rotateX: -5, scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 200, damping: 10 }}
-          >
-            <div className="service-icon">🛠️</div>
-            <h2>Website Maintenance</h2>
-            <h3 style={{ color: "#a74a4a", fontSize: "20px" }}>
-              Ongoing Support
-            </h3>
-            <p>
-              Keep your website secure, updated, and running smoothly with
-              regular maintenance and technical support.
-            </p>
-            <p
-              className="price"
-              id="money"
-              onClick={() => handleViewMore("maintenance")}
-              style={{ marginTop: "37px" }}
-            >
-              More Details
-            </p>
-          </motion.div>
+              <div className="service-icon-wrapper">
+                {service.icon}
+              </div>
+              <h2>{service.title}</h2>
+              <h3 className="service-card-subtitle">
+                {service.subtitle}
+              </h3>
+              <p>
+                {service.description}
+              </p>
+              <button
+                className="service-btn"
+                onClick={() => handleViewMore(key)}
+              >
+                View Details
+              </button>
+            </motion.div>
+          ))}
         </div>
       </div>
 
@@ -190,40 +133,46 @@ const Services = () => {
             <motion.div
               className="service-modal"
               onClick={(e) => e.stopPropagation()}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
             >
               <button className="close-btn" onClick={handleClose}>
-                ×
+                <X size={24} />
               </button>
 
-              <div className="modal-icon">{serviceDetails[activeService].icon}</div>
-              <h2>{serviceDetails[activeService].title}</h2>
-              <h4>{serviceDetails[activeService].subtitle}</h4>
-              <p>{serviceDetails[activeService].description}</p>
+              <div className="modal-header-content">
+                <div className="modal-icon-large">{serviceDetails[activeService].icon}</div>
+                <div>
+                  <h2>{serviceDetails[activeService].title}</h2>
+                  <p className="modal-subtitle-text">{serviceDetails[activeService].subtitle}</p>
+                </div>
+              </div>
 
-              <h4>🚀 Key Features:</h4>
-              <ul>
-                {serviceDetails[activeService].features.map((f, i) => (
-                  <li key={i}>{f}</li>
-                ))}
-              </ul>
+              <div className="modal-body-content">
+                <p className="modal-description-text">{serviceDetails[activeService].description}</p>
 
-              <h4>🧰 Tools & Technologies:</h4>
-              <ul>
-                {serviceDetails[activeService].tools.map((t, i) => (
-                  <li key={i}>{t}</li>
-                ))}
-              </ul>
+                <div className="modal-section">
+                  <h4><CheckCircle2 size={20} className="inline-icon" /> Key Features</h4>
+                  <ul className="feature-list">
+                    {serviceDetails[activeService].features.map((f, i) => (
+                      <li key={i}>{f}</li>
+                    ))}
+                  </ul>
+                </div>
 
-              <div
-                style={{
-                  textAlign: "center",
-                  marginTop: "1.5rem",
-                }}
-              >
+                <div className="modal-section">
+                  <h4>🧰 Tools & Technologies</h4>
+                  <div className="tools-grid">
+                    {serviceDetails[activeService].tools.map((t, i) => (
+                      <span key={i} className="tool-chip">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="modal-footer-action">
                 <button className="btn secondary" onClick={handleClose}>
                   Close
                 </button>

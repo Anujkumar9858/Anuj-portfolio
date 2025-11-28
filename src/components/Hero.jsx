@@ -1,8 +1,8 @@
 import React from "react";
-import { ReactTyped } from "react-typed"; 
-import { motion } from "framer-motion"; 
+import { ReactTyped } from "react-typed";
+import { motion } from "framer-motion";
 import IMG from "../assets/Image/IMG.jpg";
-import Video from "../../src/assets/Image/Video.mp4"
+import Video from "../assets/Image/Video.mp4"
 
 // SVG ICONS
 const GithubIcon = () => (
@@ -61,6 +61,7 @@ function Hero() {
         loop
         muted
         playsInline
+        preload="auto"
         aria-hidden="true"
         style={{
           position: "absolute",
@@ -150,9 +151,9 @@ function Hero() {
           transition={{ duration: 1, delay: 0.5, type: "spring" }}
           style={{ perspective: "1000px" }}
         >
-          <img 
-            src={IMG} 
-            alt="Anuj Kumar" 
+          <img
+            src={IMG}
+            alt="Anuj Kumar"
             className="profile-pic"
           />
           <div className="card">

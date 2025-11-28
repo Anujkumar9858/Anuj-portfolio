@@ -22,6 +22,7 @@
   --shadow: 0 10px 30px rgba(2, 6, 23, .08);
 }
 
+
 .glass {
   backdrop-filter: blur(10px) saturate(120%);
   background: color-mix(in oklab, var(--panel) 85%, white 15%/60%);
@@ -80,6 +81,19 @@
 
 * {
   box-sizing: border-box;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 html {
@@ -322,9 +336,9 @@ nav a.active {
   color: var(--muted);
 }
 
-[data-theme="light"] .profile-icon:hover {
-  color: var(--text);
-  background: rgba(2, 6, 23, .06);
+[data-theme="light"] .profile-icon:hover {}
+
+background: rgba(2, 6, 23, .06);
 }
 
 /* Hero */
@@ -537,95 +551,7 @@ section {
   /* h3 ke niche ka gap kam */
 }
 
-.project p {
-  margin-top: 0.3rem;
-  /* paragraph ke upar ka gap kam */
-}
-
-/* Tighter content inside project cards only */
-.project .lead {
-  font-size: 0.95rem;
-}
-
-.project .hero-cta {
-  margin-top: 0.8rem;
-  gap: .6rem;
-}
-
-/* Timeline */
-.timeline {
-  position: relative;
-  padding-left: 1rem;
-}
-
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: .35rem;
-  top: .4rem;
-  bottom: .4rem;
-  width: 2px;
-  background: linear-gradient(var(--brand), var(--brand-2));
-  border-radius: 2px;
-}
-
-.t-item {
-  position: relative;
-  margin: 10px;
-  margin-left: 1rem;
-  padding-left: 1rem;
-  border-left: 1px dashed #ffffff30;
-}
-
-.t-item::marker {
-  content: "";
-}
-
-.t-dot {
-  position: absolute;
-  left: -1.25rem;
-  top: .4rem;
-  width: 11px;
-  height: 11px;
-  border: 2px solid #fff;
-  background: var(--brand);
-  border-radius: 999px;
-  box-shadow: 0 0 0 4px #8b5cf633;
-}
-
-/* Contact */
-form {
-  display: grid;
-  gap: .9rem;
-}
-
-input,
-textarea {
-  width: 100%;
-  padding: .9rem 1rem;
-  border-radius: 12px;
-  border: 1px solid #ffffff28;
-  background: #0f172a;
-  color: var(--text);
-  outline: none;
-}
-
-input:focus,
-textarea:focus {
-  box-shadow: var(--ring);
-  border-color: color-mix(in oklab, var(--brand) 40%, #ffffff28);
-}
-
-textarea {
-  min-height: 140px;
-  resize: vertical;
-}
-
-/* Footer */
-footer {
-  padding: 2.5rem 0 3.5rem;
-  color: var(--muted);
-}
+.project p {}
 
 /* Falling stars */
 @keyframes star-fall {
@@ -912,16 +838,6 @@ footer {
 #money {
   height: 35px;
   width: 250px;
-  border-radius: 24px;
-  cursor: pointer;
-  background: var(--mixbtn);
-}
-
-.card-container {
-  display: flex;
-  justify-content: center;
-  /* Center horizontally */
-  align-items: center;
   /* Center vertically */
   height: 100vh;
   /* Full height of the viewport, if needed */
@@ -979,4 +895,48 @@ footer {
   height: 30px;
   line-height: 30px;
   margin-top: 10px;
+}
+
+/* Footer Styles */
+.footer-link {
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--text);
+}
+
+.footer-social {
+  color: var(--muted);
+  transition: all 0.2s ease;
+  padding: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-social:hover {
+  color: var(--brand);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.back-to-top {
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.back-to-top:hover {
+  color: var(--brand);
+}
+
+[data-theme="light"] .footer-social {
+  background: rgba(2, 6, 23, .06);
+}
+
+[data-theme="light"] .footer-social:hover {
+  background: rgba(2, 6, 23, .1);
 }
