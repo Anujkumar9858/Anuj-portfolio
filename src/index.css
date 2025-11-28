@@ -291,7 +291,6 @@ nav a {
   border-radius: 10px;
   color: var(--muted);
   font-weight: 600;
-
 }
 
 nav a:hover,
@@ -303,8 +302,6 @@ nav a.active {
 .menu-btn {
   display: none;
 }
-
-/* theme toggle removed */
 
 /* Profile icon styling (single definition) */
 .profile-icon {
@@ -336,9 +333,8 @@ nav a.active {
   color: var(--muted);
 }
 
-[data-theme="light"] .profile-icon:hover {}
-
-background: rgba(2, 6, 23, .06);
+[data-theme="light"] .profile-icon:hover {
+  background: rgba(2, 6, 23, .06);
 }
 
 /* Hero */
@@ -351,7 +347,6 @@ background: rgba(2, 6, 23, .06);
   display: grid;
   grid-template-columns: 1.2fr .8fr;
   gap: 3rem;
-  /* Thoda gap badhaya gaya hai */
   align-items: center;
 }
 
@@ -361,6 +356,8 @@ background: rgba(2, 6, 23, .06);
   letter-spacing: .1em;
   text-transform: uppercase;
   font-size: .8rem;
+  display: flex;
+  align-items: center;
 }
 
 h1 {
@@ -388,18 +385,11 @@ h1 {
   background: linear-gradient(180deg, #0b1020d9, #0b1020bf);
   box-shadow: var(--shadow);
   padding: 1.4rem;
-  /* Padding badhai gayi hai */
   display: flex;
-  /* Flexbox use kiya gaya hai */
   flex-direction: column;
-  /* Items ko upar se neeche stack karne ke liye */
   gap: 1.7rem;
-  /* Cards ke beech ka gap */
   margin-top: 25px;
 }
-
-
-/* --- Naye Styles --- */
 
 .profile-pic {
   width: 100%;
@@ -551,7 +541,7 @@ section {
   /* h3 ke niche ka gap kam */
 }
 
-.project p {}
+
 
 /* Falling stars */
 @keyframes star-fall {
@@ -905,6 +895,7 @@ section {
 
 .footer-link:hover {
   color: var(--text);
+  padding: 0;
 }
 
 .footer-social {

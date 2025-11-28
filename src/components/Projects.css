@@ -2,6 +2,15 @@
   padding: 4rem 0;
 }
 
+#work-title {
+  min-height: 2.5em;
+  /* increased to accommodate 2 lines */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.2;
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
