@@ -1,19 +1,20 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { ReactTyped } from "react-typed";
 import { Send, Mail, MapPin, Github, Linkedin, Instagram, User, MessageSquare } from "lucide-react";
 import "./Contact.css";
 
 function Contact() {
+  const formRef = useRef();
   const [status, setStatus] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const form = e.target;
-    const data = new FormData(form);
 
+    const data = new FormData(formRef.current);
     const name = data.get("name")?.toString().trim();
     const email = data.get("email")?.toString().trim();
     const message = data.get("message")?.toString().trim();
@@ -29,22 +30,36 @@ function Contact() {
       return;
     }
 
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+    // EmailJS Service
+    // REPLACE 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', 'YOUR_PUBLIC_KEY' with your actual EmailJS values
+    // You can find these in your EmailJS dashboard: https://dashboard.emailjs.com/admin
+    emailjs
+      .sendForm(
+        "YOUR_SERVICE_ID",
+        "YOUR_TEMPLATE_ID",
+        formRef.current,
+        "YOUR_PUBLIC_KEY"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setStatus("Thanks! Your message has been sent successfully.");
 
-      const messages = JSON.parse(localStorage.getItem("messages") || "[]");
-      messages.push({ sender: name, email, content: message, date: new Date().toISOString() });
-      localStorage.setItem("messages", JSON.stringify(messages));
+          // Save to local storage as backup
+          const messages = JSON.parse(localStorage.getItem("messages") || "[]");
+          messages.push({ sender: name, email, content: message, date: new Date().toISOString() });
+          localStorage.setItem("messages", JSON.stringify(messages));
 
-      setStatus("Thanks! Your message has been sent successfully.");
-      form.reset();
-      setTimeout(() => setStatus(""), 4000);
-    } catch {
-      setStatus("Failed to send message. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
+          formRef.current.reset();
+          setTimeout(() => setStatus(""), 4000);
+          setIsSubmitting(false);
+        },
+        (error) => {
+          console.log(error.text);
+          setStatus("Failed to send message. Please try again.");
+          setIsSubmitting(false);
+        }
+      );
   };
 
   return (
@@ -75,7 +90,7 @@ function Contact() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8 }}
           >
-            <form className="contact-form-card" onSubmit={handleSubmit} noValidate>
+            <form ref={formRef} className="contact-form-card" onSubmit={handleSubmit} noValidate>
               <div className="form-group">
                 <label htmlFor="name">Name</label>
                 <div className="input-wrapper">
